@@ -51,28 +51,8 @@ cmake --build .
 ```
 
 
-If you want to build a specific module, instead do:
+If you want to build a specific module, good luck lmao.
 
-```sh
-make <module_id>
-```
-
-...where the following are supported values of `<module_id>`
-- `core1`
-- `core2`
-- `MM`
-- `TTC`
-- `CC`
-- `BGS`
-- `FP`
-- `lair`
-- `GV`
-- `CCW`
-- `RBB`
-- `MMM`
-- `SM`
-- `fight`
-- `cutscenes`
 
 ### Version Selection
 
