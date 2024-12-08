@@ -2,6 +2,7 @@
 #define STDARG_H
 
 // When not building with IDO, use the builtin vaarg macros for portability.
+// this version of the project does not give 2 shits about building portability
 #ifndef __sgi
 #define va_list __builtin_va_list
 #define va_start __builtin_va_start

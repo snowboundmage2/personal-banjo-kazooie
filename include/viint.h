@@ -1,10 +1,10 @@
-#ifndef _VIINT_H
-#define _VIINT_H
-#include <ultra64.h>
+#ifndef VIINT_H
+#define VIINT_H
 
-#define OS_TV_TYPE_PAL 0
-#define OS_TV_TYPE_NTSC 1
-#define OS_TV_TYPE_MPAL 2
+#include <SDL2/SDL.h>
+#include <stdint.h>
+
+#define OS_TV_TYPE_NTSC
 
 //TODO: figure out what this is
 #define VI_STATE_01 0x01
@@ -32,10 +32,10 @@
 #define LEAP(upper, lower) ((upper << 16) | lower)
 #define START(start, end) ((start << 16) | end)
 
-#define FTOFIX(val, i, f) ((u32)(val * (f32)(1 << f)) & ((1 << (i + f)) - 1))
+#define FTOFIX(val, i, f) ((uint32_t)(val * (float)(1 << f)) & ((1 << (i + f)) - 1))
 
 #define F210(val) FTOFIX(val, 2, 10)
-#define SCALE(scaleup, off) (F210((1.0f / (f32)scaleup)) | (F210((f32)off) << 16))
+#define SCALE(scaleup, off) (F210((1.0f / (float)scaleup)) | (F210((float)off) << 16))
 
 #define VCURRENT(v) v //seemingly unused
 #define ORIGIN(v) v
@@ -44,20 +44,20 @@
 
 typedef struct
 {
-    /* 0x0 */ f32 factor;
-    /* 0x4 */ u16 offset;
-    /* 0x8 */ u32 scale;
+    /* 0x0 */ float factor;
+    /* 0x4 */ uint16_t offset;
+    /* 0x8 */ uint32_t scale;
 } __OSViScale;
 
 typedef struct
 {
-    /* 0x0 */ u16 state;
-    /* 0x2 */ u16 retraceCount;
+    /* 0x0 */ uint16_t state;
+    /* 0x2 */ uint16_t retraceCount;
     /* 0x4 */ void *framep;
-    /* 0x8 */ OSViMode *modep;
-    /* 0xC */ u32 control;
-    /* 0x10 */ OSMesgQueue *msgq;
-    /* 0x14 */ OSMesg msg;
+    /* 0x8 */ SDL_DisplayMode *modep;
+    /* 0xC */ uint32_t control;
+    /* 0x10 */ SDL_Event *msgq;
+    /* 0x14 */ SDL_Event msg;
     /* 0x18 */ __OSViScale x;
     /* 0x24 */ __OSViScale y;
 } __OSViContext;
@@ -67,4 +67,5 @@ extern __OSViContext *__osViCurr;
 extern __OSViContext *__osViNext;
 __OSViContext *__osViGetCurrentContext(void);
 void __osViInit(void);
+
 #endif

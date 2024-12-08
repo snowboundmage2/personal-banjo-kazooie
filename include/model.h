@@ -1,204 +1,203 @@
-#ifndef __MODEL_H__
-#define __MODEL_H__
-#include <ultra64.h>
+#ifndef MODEL_H
+#define MODEL_H
+
+#include <stdint.h>
+#include <SDL2/SDL.h>
 
 typedef struct {
-    Vtx v;
-    s16 unk10; //vtx_indx
-    u8 pad12[2];
-    u8 pad14[4];
+    SDL_Vertex v;
+    int16_t unk10; // vtx_indx
+    uint8_t pad12[2];
+    uint8_t pad14[4];
 } BKVtxRef;
 
 /* BKMesh
  * This struct is a set of Vtx that will be modified at runtime.
- * This struct is followed by an array of s16 containing the
+ * This struct is followed by an array of int16_t containing the
  * Vtx index inside the model's BKVertexList.
 */
 typedef struct {
-    s16 uid_0;
-    s16 vtxCount_2;
+    int16_t uid_0;
+    int16_t vtxCount_2;
 } BKMesh;
 
 typedef struct {
-    s32 cmd_0;
-    s32 size_4;
-}BKGeoList;
+    int32_t cmd_0;
+    int32_t size_4;
+} BKGeoList;
 
 /* BKMeshList 
  * This struct is followed by an array of BKMesh which contain
  * lists of Vtx that are modified at runtime.
  */
 typedef struct {
-    s16 meshCount_0;
+    int16_t meshCount_0;
 } BKMeshList;
 
 typedef struct {
-    s16 minCoord[3];
-    s16 maxCoord[3];
-    s16 centerCoord[3];
-    s16 local_norm;       //(distance to furthest vtx relative to model center)
-    s16 count;
-    s16 global_norm; //(distance to furthest vtx relative to model origin)
-    Vtx vtx_18[];
+    int16_t minCoord[3];
+    int16_t maxCoord[3];
+    int16_t centerCoord[3];
+    int16_t local_norm;       //(distance to furthest vtx relative to model center)
+    int16_t count;
+    int16_t global_norm; //(distance to furthest vtx relative to model origin)
+    SDL_Vertex vtx_18[];
 } BKVertexList;
 
 typedef struct {
-    s16 start_tri_index; //start_tri
-    s16 tri_count; //tri_cnt
-} BKCollisionGeo; //BKCollisionGeometry
+    int16_t start_tri_index; // start_tri
+    int16_t tri_count; // tri_cnt
+} BKCollisionGeo; // BKCollisionGeometry
 
 typedef struct {
-    s16 unk0[3]; //vtx_indx
-    s16 unk6;
-    s32 flags; //flags
-} BKCollisionTri; //BKCollisionTri
+    int16_t unk0[3]; // vtx_indx
+    int16_t unk6;
+    int32_t flags; // flags
+} BKCollisionTri; // BKCollisionTri
 
 typedef struct {
-    s16 unk0[3]; //min
-    s16 unk6[3]; //max
-    s16 unkC; //y_stride
-    s16 unkE; //z_stride
-    s16 unk10; //geo_cnt
-    s16 unk12; //scale
-    s16 unk14; //tri_cnt
-    u8 pad16[0x2];
-    //BKCollisionGeo[]
-    //BKCollisionTri[]
-}BKCollisionList;
+    int16_t unk0[3]; // min
+    int16_t unk6[3]; // max
+    int16_t unkC; // y_stride
+    int16_t unkE; // z_stride
+    int16_t unk10; // geo_cnt
+    int16_t unk12; // scale
+    int16_t unk14; // tri_cnt
+    uint8_t pad16[2];
+    // BKCollisionGeo[]
+    // BKCollisionTri[]
+} BKCollisionList;
 
 typedef struct {
-    u8 pad0[0];
-}BKEffectsList; //see BKMeshList
+    uint8_t pad0[0];
+} BKEffectsList; // see BKMeshList
 
 typedef struct {
-    f32 unk0[3];
-    s16 bone_id;
-    s16 mtx_id;
-}BKAnimation;
+    float unk0[3];
+    int16_t bone_id;
+    int16_t mtx_id;
+} BKAnimation;
 
 typedef struct {
-    f32 unk0;
-    s16 cnt_4;
+    float unk0;
+    int16_t cnt_4;
     BKAnimation anim[];
-}BKAnimationList;
+} BKAnimationList;
 
 typedef struct {
-    u8 pad0[8];
-    Gfx list[];
+    uint8_t pad0[8];
+    Gfx list[]; 
 } BKGfxList;
 
 typedef struct {
-    s32 offset_0;
-    s16 type_4;
-    u8 pad6[2];
-    u8 width_8;
-    u8 height_9;
-    u8 padA[6];
-}BKTextureHeader;
+    int32_t offset_0;
+    int16_t type_4;
+    uint8_t pad6[2];
+    uint8_t width_8;
+    uint8_t height_9;
+    uint8_t padA[6];
+} BKTextureHeader;
 
 typedef struct {
-    s32 size_0;
-    s16 cnt_4;
-    u8 pad6[2];
+    int32_t size_0;
+    int16_t cnt_4;
+    uint8_t pad6[2];
     BKTextureHeader tex_8[];
-}BKTextureList;
+} BKTextureList;
 
 typedef struct {
-    s16 unk0[3];
-    s16 unk6[3];
-    s16 unkC[3];
-    u8 unk12[3];
-    u8 unk15;
-    s8 unk16;
-    u8 pad17[1];
-}BKModelUnk14_0;
+    int16_t unk0[3];
+    int16_t unk6[3];
+    int16_t unkC[3];
+    uint8_t unk12[3];
+    uint8_t unk15;
+    int8_t unk16;
+    uint8_t pad17[1];
+} BKModelUnk14_0;
 
 typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4[3];
-    u8 unkA[3];
-    u8 unkD;
-    s8 unkE;
-    u8 padF[1];
-}BKModelUnk14_1;
+    int16_t unk0;
+    int16_t unk2;
+    int16_t unk4[3];
+    uint8_t unkA[3];
+    uint8_t unkD;
+    int8_t unkE;
+    uint8_t padF[1];
+} BKModelUnk14_1;
 
 typedef struct {
-    s16 unk0;
-    s16 unk2[3];
-    u8 unk8;
-    s8 unk9;
-    u8 padA[2];
-}BKModelUnk14_2;
+    int16_t unk0;
+    int16_t unk2[3];
+    uint8_t unk8;
+    int8_t unk9;
+    uint8_t padA[2];
+} BKModelUnk14_2;
 
 typedef struct {
-    s16 cnt0; //number of BKModelUnk14_0 structs
-    s16 cnt2; //number of BKModelUnk14_1 structs
-    s16 unk4; //number of BKModelUnk14_2 structs
-    s16 unk6;
-    //BKModelUnk14_0[]
-    //BKModelUnk14_1[]
-    //BKModelUnk14_2[]
-}BKModelUnk14List;
+    int16_t cnt0; // number of BKModelUnk14_0 structs
+    int16_t cnt2; // number of BKModelUnk14_1 structs
+    int16_t unk4; // number of BKModelUnk14_2 structs
+    int16_t unk6;
+    // BKModelUnk14_0[]
+    // BKModelUnk14_1[]
+    // BKModelUnk14_2[]
+} BKModelUnk14List;
 
-typedef struct{
-    s16 unk0[3];
-    s16 unk6[3];
-    u8 unkC;
-    u8 padD[0x1];
-}BKModelUnk20_0;
+typedef struct {
+    int16_t unk0[3];
+    int16_t unk6[3];
+    uint8_t unkC;
+    uint8_t padD[1];
+} BKModelUnk20_0;
 
-typedef struct{
-    u8 unk0;
-    u8 pad1[1];
-    //BKModelUnk20_0[]
-}BKModelUnk20List;
+typedef struct {
+    uint8_t unk0;
+    uint8_t pad1[1];
+    // BKModelUnk20_0[]
+} BKModelUnk20List;
 
-typedef struct{
-    s16 coord[3];
-    s8 anim_index;
-    u8 vtx_count;
-    s16 vtx_list[1];
-}BKModelUnk28;
+typedef struct {
+    int16_t coord[3];
+    int8_t anim_index;
+    uint8_t vtx_count;
+    int16_t vtx_list[1];
+} BKModelUnk28;
 
-typedef struct{
-    s16 count;
-    u8 pad2[2];
-    //BKModelUnk28_0[]
-}BKModelUnk28List;
+typedef struct {
+    int16_t count;
+    uint8_t pad2[2];
+    // BKModelUnk28_0[]
+} BKModelUnk28List;
 
-
-
-typedef struct{
-    s16 frame_size;
-    s16 frame_cnt;
-    f32 frame_rate;
-}AnimTexture;
-
-
+typedef struct {
+    int16_t frame_size;
+    int16_t frame_cnt;
+    float frame_rate;
+} AnimTexture;
 
 typedef struct {
     BKMeshList *meshList_0;
     BKVertexList *vtxList_4;
 } BKModel;
 
-typedef struct{
-    u8 pad0[0x4];
-    s32 geo_list_offset_4;
-    s16 texture_list_offset_8;
-    s16 geo_typ_A;
-    s32 gfx_list_offset_C;
-    s32 vtx_list_offset_10;
-    s32 unk14;
-    s32 animation_list_offset_18;
-    s32 collision_list_offset_1C;
-    s32 unk20;
-    s32 effects_list_setup_24;
-    s32 unk28;
-    s32 animated_texture_list_offset; //AnimTexture[4]
-}BKModelBin;
+typedef struct {
+    uint8_t pad0[4];
+    int32_t geo_list_offset_4;
+    int16_t texture_list_offset_8;
+    int16_t geo_typ_A;
+    int32_t gfx_list_offset_C;
+    int32_t vtx_list_offset_10;
+    int32_t unk14;
+    int32_t animation_list_offset_18;
+    int32_t collision_list_offset_1C;
+    int32_t unk20;
+    int32_t effects_list_setup_24;
+    int32_t unk28;
+    int32_t animated_texture_list_offset; // AnimTexture[4]
+} BKModelBin;
 
 BKVertexList *model_getVtxList(BKModelBin *arg0);
-Vtx *vtxList_getVertices(BKVertexList *vtxList);
-void codeAC520_func_80333D48(BKVertexList *arg0, f32 position[3], f32 rotation[3], f32 scale, f32 arg4[3], BKVertexList *arg5);
-#endif
+SDL_Vertex *vtxList_getVertices(BKVertexList *vtxList);
+void codeAC520_func_80333D48(BKVertexList *arg0, float position[3], float rotation[3], float scale, float arg4[3], BKVertexList *arg5);
+
+#endif // MODEL_H

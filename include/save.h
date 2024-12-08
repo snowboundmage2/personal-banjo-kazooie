@@ -2,17 +2,17 @@
 #define __SAVE_H__
 
 typedef struct{
-    u8 magic;
-    u8 slotIndex;
-    u8 data[0x70];
-    u8 padding[0x2];
-    u32 checksum;
+    uint8_t magic;
+    uint8_t slotIndex;
+    uint8_t data[0x70];
+    uint8_t padding[0x2];
+    uint32_t checksum;
 }SaveData;
 
 typedef struct {
-    u32 snsItems;
-    u8 padding[0x18];
-    u32 checksum;
+    uint32_t snsItems;
+    uint8_t padding[0x18];
+    uint32_t checksum;
 }GlobalData;
 
 #endif

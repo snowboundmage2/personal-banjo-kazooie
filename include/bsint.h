@@ -1,7 +1,6 @@
 #ifndef __BS_INT_H__
 #define __BS_INT_H__
 
-#include <ultra64.h>
 #include "functions.h"
 #include "variables.h"
 
@@ -74,7 +73,7 @@ typedef struct bs_state_s{
 } bsState;
 
 typedef struct bs_map_s{
-    s32 uid;
+    int32_t uid;
     bsState behavior;
 } bsMap;
 

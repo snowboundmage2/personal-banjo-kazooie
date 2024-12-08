@@ -1,21 +1,20 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-#include <ultra64.h>
+#include <stdint.h>
 #include "structs.h"
 
-typedef struct asset_rom_table_head_s{
-    u32 count;
-    u32 unk4;
+typedef struct {
+    uint32_t count;
+    uint32_t unk4;
 } AssetROMHead;
 
-typedef struct asset_file_meta_s{
-    u32 offset;
-    s16 compFlag;
-    s16 unk6;
+typedef struct {
+    uint32_t offset;
+    int16_t compFlag;
+    int16_t unk6;
 } AssetFileMeta;
 
-
-extern u8 assets_ROM_START[]; //rom file asset bin;
+extern uint8_t assets_ROM_START[]; // ROM file asset bin
 
 #endif

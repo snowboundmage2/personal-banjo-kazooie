@@ -1,8 +1,6 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include <ultra64.h>
-
 #include "enums.h"
 #include "structs.h"
 #include "string.h"

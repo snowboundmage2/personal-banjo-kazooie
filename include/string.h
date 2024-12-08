@@ -5,12 +5,12 @@
 
 void strcat(char *dst, char *src);
 void strcatc(char *dst, char src);
-void strFToA(char *dst, f32 val);
-void _strFToA(char *dst, f32 val, s32 decPlaces);
-void strIToA(char *str, s32 num);
-void _strIToA(char *str, s32 num, char base);
+void strFToA(char *dst, float val);
+void _strFToA(char *dst, float val, int32_t decPlaces);
+void strIToA(char *str, int32_t num);
+void _strIToA(char *str, int32_t num, char base);
 void strcpy(char *dst, char *src);
-s32 strlen(char *str);
+int32_t strlen(char *str);
 void strToUpper(char *str);
 
 

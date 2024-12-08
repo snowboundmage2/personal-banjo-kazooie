@@ -1,49 +1,47 @@
 #ifndef PROP_H
 #define PROP_H
 
-#include <ultra64.h>
-
+#include <stdint.h>
 #include "structs.h"
-#include "core2/anctrl.h"
-#include "core2/modelRender.h"
-#include "core2/skeletalanim.h"
+#include <SDL2/SDL.h>
 
-typedef struct sprite_prop_s{
-    u32 unk0_31:0xC;
-    u32 unk0_19:0x1;
-    u32 unk0_18:0x3;
-    u32 unk0_15:0x3;
-    u32 unk0_12:0x3;
-    u32 unk0_9:0x8;
-    u32 unk0_1:0x1;
-    u32 unk0_0:0x1;
-    s16 unk4[3];
-    u16 unk8_15: 5;
-    u16 unk8_10: 5;
-    u16 unk8_5: 1;
-    u16 unk8_4: 1;
-    u16 unk8_3: 1;
-    u16 unk8_2: 1;
-    u16 unk8_1:1;
-    u16 unk8_0:1;
+
+typedef struct sprite_prop_s {
+    uint32_t unk0_31: 12;
+    uint32_t unk0_19: 1;
+    uint32_t unk0_18: 3;
+    uint32_t unk0_15: 3;
+    uint32_t unk0_12: 3;
+    uint32_t unk0_9: 8;
+    uint32_t unk0_1: 1;
+    uint32_t unk0_0: 1;
+    int16_t unk4[3];
+    uint16_t unk8_15: 5;
+    uint16_t unk8_10: 5;
+    uint16_t unk8_5: 1;
+    uint16_t unk8_4: 1;
+    uint16_t unk8_3: 1;
+    uint16_t unk8_2: 1;
+    uint16_t unk8_1: 1;
+    uint16_t unk8_0: 1;
 } SpriteProp;
 
-typedef struct model_prop_s{
-    union{
-        u16 unk0;
-        struct{    
-            u16 unk0_31:12;
-            u16 pad0_19:4;
+typedef struct model_prop_s {
+    union {
+        uint16_t unk0;
+        struct {
+            uint16_t unk0_31 : 12;
+            uint16_t pad0_19 : 4;
         };
     };
-    u8 unk0_15;
-    u8 unk0_7;
-    s16 unk4[3];
-    u8 unkA;
-    u8 padB_7 :2;
-    u8 unkB_5 :1;
-    u8 unkB_4 :1;
-    u8 padB_3 :4;
+    uint8_t unk0_15;
+    uint8_t unk0_7;
+    int16_t unk4[3];
+    uint8_t unkA;
+    uint8_t padB_7 : 2;
+    uint8_t unkB_5 : 1;
+    uint8_t unkB_4 : 1;
+    uint8_t padB_3 : 4;
 } ModelProp;
 
 
@@ -51,24 +49,24 @@ typedef struct actor_prop_s{
     union {
         struct {
             struct actorMarker_s* marker;
-            s16 x;
-            s16 y;
-            s16 z;
-            u16 unk8_15:5;
-            u16 unk8_10:5;
-            u16 unk8_5:1;
-            u16 unk8_4:1;
-            u16 unk8_3:1;
-            u16 unk8_2:1;
-            u16 unk8_1:1;
-            u16 unk8_0:1;
+            int16_t x;
+            int16_t y;
+            int16_t z;
+            uint16_t unk8_15:5;
+            uint16_t unk8_10:5;
+            uint16_t unk8_5:1;
+            uint16_t unk8_4:1;
+            uint16_t unk8_3:1;
+            uint16_t unk8_2:1;
+            uint16_t unk8_1:1;
+            uint16_t unk8_0:1;
         };
-        s32 words[3];
+        int32_t words[3];
     };
 } ActorProp;
 
 typedef void(*MarkerCollisionFunc)(struct actorMarker_s *this, struct actorMarker_s *other);
-typedef struct actor_s *(*MarkerDrawFunc)(struct actorMarker_s *, Gfx **, Mtx **, Vtx **);
+typedef struct actor_s *(*MarkerDrawFunc)(struct actorMarker_s *, Gfx **, Mtx **, SDL_Vertex **);
 typedef void (*ActorUpdateFunc)(struct actor_s *);
 typedef void (*ActorFreeFunc)(struct actor_s *);
 
@@ -78,246 +76,246 @@ typedef struct actorMarker_s{
     MarkerDrawFunc drawFunc;
     MarkerCollisionFunc collisionFunc; //ow_func
     MarkerCollisionFunc collision2Func;
-    u32         yaw:9;
-    u32         unk14_22:1;
-    u32         unk14_21:1;
-    u32         id:10; //  marker id of type marker enum_e
-    u32         unk14_10:11; //used in ch/jiggy
+    uint32_t         yaw:9;
+    uint32_t         unk14_22:1;
+    uint32_t         unk14_21:1;
+    uint32_t         id:10; //  marker id of type marker enum_e
+    uint32_t         unk14_10:11; //used in ch/jiggy
     Struct6Cs   *unk18;
     MarkerCollisionFunc dieFunc;
-    s32         unk20;
+    int32_t         unk20;
     ActorUpdateFunc actorUpdateFunc;
-    s32         unk28;
-    u32         actrArrayIdx:11; //unk2C
-    u32         pitch:9;
-    u32         roll:9;
-    u32         unk2C_2:1;
-    u32         unk2C_1:1;
-    u32         collidable:1;
+    int32_t     unk28;
+    uint32_t         actrArrayIdx:11; //unk2C
+    uint32_t         pitch:9;
+    uint32_t         roll:9;
+    uint32_t         unk2C_2:1;
+    uint32_t         unk2C_1:1;
+    uint32_t         collidable:1;
     ActorFreeFunc actorFreeFunc;
     ActorUpdateFunc actorUpdate2Func;
-    s16         unk38[3];
-    u16         pad3E_15:1;
-    u16         modelId:13;
-    u16         unk3E_1:1;
-    u16         unk3E_0:1; //scaled
-    u32         unk40_31:4;
-    u32         unk40_27:4;
-    u32         unk40_23:1;
-    u32         unk40_22:1;
-    u32         unk40_21:1;
-    u32         unk40_20:1;
-    u32         unk40_19:1;
-    u32         pad40_18:19;
+    int16_t         unk38[3];
+    uint16_t         pad3E_15:1;
+    uint16_t         modelId:13;
+    uint16_t         unk3E_1:1;
+    uint16_t         unk3E_0:1; //scaled
+    uint32_t         unk40_31:4;
+    uint32_t         unk40_27:4;
+    uint32_t         unk40_23:1;
+    uint32_t         unk40_22:1;
+    uint32_t         unk40_21:1;
+    uint32_t         unk40_20:1;
+    uint32_t         unk40_19:1;
+    uint32_t         pad40_18:19;
     struct5Bs * unk44;
     BKModel *   unk48;
     vector(Struct70s) * unk4C;
-    s32         unk50;
-    void        (*unk54)(struct actorMarker_s *, struct actorMarker_s *, u16*);
-    s32         (*unk58)(struct actorMarker_s *, struct actorMarker_s *);
-    s32         unk5C;
+    int32_t         unk50;
+    void        (*unk54)(struct actorMarker_s *, struct actorMarker_s *, uint16_t*);
+    int32_t         (*unk58)(struct actorMarker_s *, struct actorMarker_s *);
+    int32_t         unk5C;
 } ActorMarker;
 
 typedef struct ch_bgs_6730_s{
-    u32  unk0;
-    u32  unk4;
-    s32  unk8;
-    s32  unkC;
+    uint32_t  unk0;
+    uint32_t  unk4;
+    int32_t  unk8;
+    int32_t  unkC;
 } ActorLocal_BGS_6730;
 
 typedef struct chtanktupbody_s{
-    s32 unk0[4];
-    s32 unk10;
-    s32 unk14;
-    f32 unk18[3];
+    int32_t unk0[4];
+    int32_t unk10;
+    int32_t unk14;
+    float unk18[3];
 }ActorLocal_TanktupBody;
 
 
 typedef struct actor_anim_info_s{
-    u32     index;
-    f32     duration;
+    uint32_t     index;
+    float     duration;
 } ActorAnimationInfo;
 
 typedef struct jinjo_s{
-    s32     unk0;
-    s32     unk4;
-    s32     unk8;
-    s32     unkC;
+    int32_t     unk0;
+    int32_t     unk4;
+    int32_t     unk8;
+    int32_t     unkC;
 }ActorLocal_Jinjo;
 
 typedef struct ch_sm_4070{
-    s32 dialog_id;
+    int32_t dialog_id;
 }ActorLocal_SM_4070;
 
 typedef struct actor_s{
     ActorMarker* marker;
-    TUPLE(f32,position);
-    u32 state:6; /* unk10_31*/
-    u32 unk10_25:7;
-    u32 unk10_18:6;
-    u32 unk10_12:4; // number of defeated enemies in SM attack tutorial
-    u32 unk10_8:1;
-    u32 unk10_7:1;
-    u32 unk10_6:2;
-    u32 unk10_4:1;
-    u32 unk10_3:2;
-    u32 unk10_1:1;
-    u32 is_bundle:1;
+    TUPLE(float,position);
+    uint32_t state:6; /* unk10_31*/
+    uint32_t unk10_25:7;
+    uint32_t unk10_18:6;
+    uint32_t unk10_12:4; // number of defeated enemies in SM attack tutorial
+    uint32_t unk10_8:1;
+    uint32_t unk10_7:1;
+    uint32_t unk10_6:2;
+    uint32_t unk10_4:1;
+    uint32_t unk10_3:2;
+    uint32_t unk10_1:1;
+    uint32_t is_bundle:1;
     AnimCtrl *anctrl;
     ActorAnimationInfo *unk18;
-    TUPLE(f32, unk1C); // actor position? // used as "home" for chbat
-    f32 actor_specific_1_f; //used in cheggs
-    TUPLE(f32, velocity);
-    u32  unk38_31:10; // hit count for jinjo base in fight
-    u32  unk38_21:9;
-    u32  unk38_13:9;
-    u32  stored_anctrl_playbackType_:3; //anctrlPlaybackType
-    u32  unk38_0:1;
-    u32 unk3C;
-    s32 unk40;
-    u32 unk44_31:8; // sfxsource idx
-    u32 modelCacheIndex:10; //modelCacheIndex
-    s32 unk44_14:10;
-    u32 despawn_flag:1;
-    u32 unk44_2:1; // is set, when actors created inside Cube?
-    u32 unk44_1:1; // only used by blubber?
-    u32 unk44_0:1; // unused
-    f32 unk48; //used in chlmonkey (chimpy)
-    f32 unk4C;
-    /* 0x50 */ f32 yaw; //0x50
-    f32 unk54; //0x54
-    u32 anctrl_asset_id: 15; // animation asset id (enum asset_id)
-    u32 stored_anctrl_index: 14; //anctrlAnimIndex;
-    u32 unk58_2: 1;
-    u32 unk58_1: 1;
-    u32 unk58_0: 1;
-    f32 unk5C;
-    f32 lifetime_value; // actor lifetime?
-    f32 yaw_ideal; //0x64
-    f32 pitch;//0x68
-    f32 unk6C;
-    f32 unk70;
-    f32 unk74;
-    u32 unk78_31:9;
-    u32 unk78_22:9;
-    u32 unk78_13:12; //default_spawn_yaw?
-    u32 stored_anctrl_forwards:1; //animCtrlDirection
-    u32 stored_anctrl_smoothTransistion:1; //animCtrlSmoothTransition
+    TUPLE(float, unk1C); // actor position? // used as "home" for chbat
+    float actor_specific_1_f; //used in cheggs
+    TUPLE(float, velocity);
+    uint32_t  unk38_31:10; // hit count for jinjo base in fight
+    uint32_t  unk38_21:9;
+    uint32_t  unk38_13:9;
+    uint32_t  stored_anctrl_playbackType_:3; //anctrlPlaybackType
+    uint32_t  unk38_0:1;
+    uint32_t unk3C;
+    int32_t unk40;
+    uint32_t unk44_31:8; // sfxsource idx
+    uint32_t modelCacheIndex:10; //modelCacheIndex
+    int32_t unk44_14:10;
+    uint32_t despawn_flag:1;
+    uint32_t unk44_2:1; // is set, when actors created inside Cube?
+    uint32_t unk44_1:1; // only used by blubber?
+    uint32_t unk44_0:1; // unused
+    float unk48; //used in chlmonkey (chimpy)
+    float unk4C;
+    /* 0x50 */ float yaw; //0x50
+    float unk54; //0x54
+    uint32_t anctrl_asset_id: 15; // animation asset id (enum asset_id)
+    uint32_t stored_anctrl_index: 14; //anctrlAnimIndex;
+    uint32_t unk58_2: 1;
+    uint32_t unk58_1: 1;
+    uint32_t unk58_0: 1;
+    float unk5C;
+    float lifetime_value; // actor lifetime?
+    float yaw_ideal; //0x64
+    float pitch;//0x68
+    float unk6C;
+    float unk70;
+    float unk74;
+    uint32_t unk78_31:9;
+    uint32_t unk78_22:9;
+    uint32_t unk78_13:12; //default_spawn_yaw?
+    uint32_t stored_anctrl_forwards:1; //animCtrlDirection
+    uint32_t stored_anctrl_smoothTransistion:1; //animCtrlSmoothTransition
     union
     { //DON'T DO THIS JUST DEFINE STATICLY IN ch/ FILE AND CAST FROM &Actor->local
         ActorLocal_BGS_6730 bgs_6730;
         ActorLocal_TanktupBody tanktup;
         ActorLocal_Jinjo jinjo;
         ActorLocal_SM_4070 sm_4070;
-        u8  local[1];
+        uint8_t  local[1];
         struct{ 
-            u8  unk7C[0x40];
-            u8  unkBC[0x30];
+            uint8_t  unk7C[0x40];
+            uint8_t  unkBC[0x30];
         };
         
     };
-    //u8  padAC[0x44];
-    f32 stored_anctrl_timer; // animCtrlTimer
-    f32 stored_anctrl_duration; //animCtrlDuration
-    u32 unkF4_31:1;
-    u32 unkF4_30:1; // has something to do with vertices
-    u32 unkF4_29:1;
-    u32 unkF4_28:1; //saved marker->propPtr->unk8_3
-    u32 unkF4_27:1; //saved marker->propPtr->unk8_2
-    u32 unkF4_26:1; //saved marker->unk2C_1
-    u32 stored_marker_collidable:1; //saved marker->collidable
-    u32 unkF4_24:2;
-    u32 unkF4_22:1;
-    u32 initialized:1; //unkF4_21;
-    u32 unkF4_20:12;
-    u32 unkF4_8:9; /* jinjo id in final fight.
+    //uint8_t  padAC[0x44];
+    float stored_anctrl_timer; // animCtrlTimer
+    float stored_anctrl_duration; //animCtrlDuration
+    uint32_t unkF4_31:1;
+    uint32_t unkF4_30:1; // has something to do with vertices
+    uint32_t unkF4_29:1;
+    uint32_t unkF4_28:1; //saved marker->propPtr->unk8_3
+    uint32_t unkF4_27:1; //saved marker->propPtr->unk8_2
+    uint32_t unkF4_26:1; //saved marker->unk2C_1
+    uint32_t stored_marker_collidable:1; //saved marker->collidable
+    uint32_t unkF4_24:2;
+    uint32_t unkF4_22:1;
+    uint32_t initialized:1; //unkF4_21;
+    uint32_t unkF4_20:12;
+    uint32_t unkF4_8:9; /* jinjo id in final fight.
                     *  Is used to determine file progress related stuff, can also be a file_progress_e
                     */
-    f32 stored_anctrl_subrangeMin; //animCtrl_SubRangeStart
-    f32 stored_anctrl_subrangeMax; //animCtrl_SubRangeEnd
+    float stored_anctrl_subrangeMin; //animCtrl_SubRangeStart
+    float stored_anctrl_subrangeMax; //animCtrl_SubRangeEnd
     ActorMarker *unk100; // child actor marker ?
     ActorMarker *unk104;
     Struct62s *unk108;
-    // void ( *unk108)(struct actorMarker_s *, s32); //saved from marker->collisionFunc
-    s32 unk10C; //saved marker->unk10
-    f32 roll;//110
-    f32 sound_timer;
-    TUPLE(f32, spawn_position); //0x118
-    u32 unk124_31:12; // only used by GV Jinxy Head 2
-    u32 alpha_124_19:8;
-    u32 unk124_11:2; //blend_mode? 
-    u32 depth_mode:2; //render_mode (passed to modelRender_setDepthMode())
-    u32 unk124_7:1;
-    u32 unk124_6:1;
-    u32 unk124_5:2;
-    u32 unk124_3:3;
-    u32 unk124_0:1; //read in bsbbuster func 
-    f32 scale;
+    // void ( *unk108)(struct actorMarker_s *, int32_t); //saved from marker->collisionFunc
+    int32_t unk10C; //saved marker->unk10
+    float roll;//110
+    float sound_timer;
+    TUPLE(float, spawn_position); //0x118
+    uint32_t unk124_31:12; // only used by GV Jinxy Head 2
+    uint32_t alpha_124_19:8;
+    uint32_t unk124_11:2; //blend_mode? 
+    uint32_t depth_mode:2; //render_mode (passed to modelRender_setDepthMode())
+    uint32_t unk124_7:1;
+    uint32_t unk124_6:1;
+    uint32_t unk124_5:2;
+    uint32_t unk124_3:3;
+    uint32_t unk124_0:1; //read in bsbbuster func 
+    float scale;
     /* 0x12C */ struct actor_info_s *actor_info;
     void (* unk130)(struct actor_s *);
     vector(AnSeqElement) **unk134; //vector<AnSeqElement> //saved marker->dieFunc
-    u32 unk138_31:1;
-    u32 unk138_30:1;
-    u32 unk138_29:1;
-    u32 unk138_28:1;
-    u32 unk138_27:2;
-    u32 unk138_25:1;
-    u32 has_met_before:1;
-    u32 unk138_23:1;
-    u32 unk138_22:1;
-    u32 unk138_21:1;
-    u32 unk138_20:1;
-    u32 unk138_19:10; //saved maker->id
-    u32 unk138_9:1;
-    u32 unk138_8:1; // set to one by ACTOR_FLAG_UNKNOWN_18, which no actor seems to use
-    u32 unk138_7:4;
-    u32 unk138_3:4;
+    uint32_t unk138_31:1;
+    uint32_t unk138_30:1;
+    uint32_t unk138_29:1;
+    uint32_t unk138_28:1;
+    uint32_t unk138_27:2;
+    uint32_t unk138_25:1;
+    uint32_t has_met_before:1;
+    uint32_t unk138_23:1;
+    uint32_t unk138_22:1;
+    uint32_t unk138_21:1;
+    uint32_t unk138_20:1;
+    uint32_t unk138_19:10; //saved maker->id
+    uint32_t unk138_9:1;
+    uint32_t unk138_8:1; // set to one by ACTOR_FLAG_UNKNOWN_18, which no actor seems to use
+    uint32_t unk138_7:4;
+    uint32_t unk138_3:4;
     ActorFreeFunc backupFreeFunc; // saved marker->actorFreeFunc
-    f32 unk140;
-    f32 unk144;
+    float unk140;
+    float unk144;
     SkeletalAnimation *unk148;
     void *unk14C[2];
     // void *unk150;
-    u32 unk154;
+    uint32_t unk154;
     ParticleEmitter *unk158[2];
     void *unk160; //saved marker->unk54
-    u8  unk164[0x2];
-    u8  unk166;
-    s8  pad167[0x1];
-    s32 unk168; //saved marker->unk58
-    u32  unk16C_31:27; //saved s1->marker->unk5C
-    u32  volatile_initialized:1; // the difference between this flag and initialized is that it is reset in actors_appendToSavestate
-    u32  unk16C_3:1;
-    u32  unk16C_2:1;
-    u32  unk16C_1:1;
-    u32  unk16C_0:1;
-    f32 unk170;
-    f32 unk174;
-    f32 unk178;
-    u32 unk17C_31:1;
-    u32 pad17C_30:31;
+    uint8_t  unk164[0x2];
+    uint8_t  unk166;
+    int8_t  pad167[0x1];
+    int32_t unk168; //saved marker->unk58
+    uint32_t  unk16C_31:27; //saved s1->marker->unk5C
+    uint32_t  volatile_initialized:1; // the difference between this flag and initialized is that it is reset in actors_appendToSavestate
+    uint32_t  unk16C_3:1;
+    uint32_t  unk16C_2:1;
+    uint32_t  unk16C_1:1;
+    uint32_t  unk16C_0:1;
+    float unk170;
+    float unk174;
+    float unk178;
+    uint32_t unk17C_31:1;
+    uint32_t pad17C_30:31;
 } Actor;
 
 typedef struct actor_info_s{
-    s16     markerId;
-    s16     actorId;
-    s16     modelId;
-    s16     startAnimation;
+    int16_t     markerId;
+    int16_t     actorId;
+    int16_t     modelId;
+    int16_t     startAnimation;
     ActorAnimationInfo*   animations;
     void    (* update_func)(Actor *);
     void    (* update2_func)(Actor *);
-    Actor*  (* draw_func)(ActorMarker *, Gfx **, Mtx **, Vtx **);
-    u16     unk18;
-    u16     draw_distance;
-    f32     shadow_scale;
-    u16     unk20;
-    //u8     pad22[2];
+    Actor*  (* draw_func)(ActorMarker *, Gfx **, Mtx **, SDL_Vertex **);
+    uint16_t     unk18;
+    uint16_t     draw_distance;
+    float     shadow_scale;
+    uint16_t     unk20;
+    //uint8_t     pad22[2];
 } ActorInfo;
 
 typedef struct actor_spawn_s{
     ActorInfo   *infoPtr;
-    Actor *(*spawnFunc)(s32[3], s32, ActorInfo*, u32);
-    s32         unk8;
+    Actor *(*spawnFunc)(int32_t[3], int32_t, ActorInfo*, uint32_t);
+    int32_t         unk8;
 } ActorSpawn;
 
 typedef union prop_s
@@ -326,73 +324,73 @@ typedef union prop_s
     SpriteProp  spriteProp;
     ModelProp    modelProp;
     struct{
-        u32 pad0;
-        s16 unk4[3];
-        // s16 unk6;
-        s16 pad8_15: 10;
-        u16 unk8_5: 1;
-        u16 unk8_4: 1;
-        u16 unk8_3: 1;
-        u16 unk8_2: 1;
-        u16 unk8_1: 1;
-        u16 markerFlag: 1;
+        uint32_t pad0;
+        int16_t unk4[3];
+        // int16_t unk6;
+        int16_t pad8_15: 10;
+        uint16_t unk8_5: 1;
+        uint16_t unk8_4: 1;
+        uint16_t unk8_3: 1;
+        uint16_t unk8_2: 1;
+        uint16_t unk8_1: 1;
+        uint16_t markerFlag: 1;
     };
 } Prop;
 
 typedef struct {
-    s16 x;
-    s16 y;
-    s16 z;
-    u16 radius: 9; // selector / volume / diameter?
-    u16 bit6: 6; // category?
-    u16 bit0: 1;
-    u16 unk8;       //actor_id?
-    u8 unkA;        //marker_id
-    u8 padB;
-    u32 yaw: 9; // unkC_31
-    u32 scale: 23; // unkC_22
-    u32 unk10_31: 12; // unk10_31 and unk10_19 seem to be related
-    u32 unk10_19: 12; // unk10_31 and unk10_19 seem to be related
-    u32 pad10_7: 1;
-    u32 unk10_6: 1; // isInitialized flag?
-    u32 pad10_5: 4;
-    u32 unk10_0: 2; // is only for used in func_803303B8
+    int16_t x;
+    int16_t y;
+    int16_t z;
+    uint16_t radius: 9; // selector / volume / diameter?
+    uint16_t bit6: 6; // category?
+    uint16_t bit0: 1;
+    uint16_t unk8;       //actor_id?
+    uint8_t unkA;        //marker_id
+    uint8_t padB;
+    uint32_t yaw: 9; // unkC_31
+    uint32_t scale: 23; // unkC_22
+    uint32_t unk10_31: 12; // unk10_31 and unk10_19 seem to be related
+    uint32_t unk10_19: 12; // unk10_31 and unk10_19 seem to be related
+    uint32_t pad10_7: 1;
+    uint32_t unk10_6: 1; // isInitialized flag?
+    uint32_t pad10_5: 4;
+    uint32_t unk10_0: 2; // is only for used in func_803303B8
 } NodeProp; // size = 20 (0x14) bytes
 
 typedef struct {
-    u8 pad0[0x4];
-    u32 pad4_31:14;
-    u32 unk4_17:2;  // only ever gets 0 written to it
-    u32 pad4_15:8;
-    u32 pad4_7:7;
-    u32 unk4_0:1; // if this and unkC_0 is false then unk10_4 and unk4_17 are set to 0 
-    u8 pad8[0x4];
-    u32 padC_31:31;
-    u32 unkC_0:1; // if this and unk4_0 is false then unk10_4 and unk4_17 are set to 0 
-    u32 pad10_31:27;
-    u32 unk10_4:4; // only ever gets 0 written to it
-    u32 pad10_0:1; 
+    uint8_t pad0[0x4];
+    uint32_t pad4_31:14;
+    uint32_t unk4_17:2;  // only ever gets 0 written to it
+    uint32_t pad4_15:8;
+    uint32_t pad4_7:7;
+    uint32_t unk4_0:1; // if this and unkC_0 is false then unk10_4 and unk4_17 are set to 0 
+    uint8_t pad8[0x4];
+    uint32_t padC_31:31;
+    uint32_t unkC_0:1; // if this and unk4_0 is false then unk10_4 and unk4_17 are set to 0 
+    uint32_t pad10_31:27;
+    uint32_t unk10_4:4; // only ever gets 0 written to it
+    uint32_t pad10_0:1; 
 } OtherNode; //can be inplace of NodeProp (see code7AF80_initCubeFromFile) size: 12 (0xC) bytes
 
 typedef struct cude_s{
-    s32 x:5;
-    s32 y:5;
-    s32 z:5;
-    u32 prop1Cnt:6;
-    u32 prop2Cnt:6;
-    u32 unk0_4:5; //node_prop_count
+    int32_t x:5;
+    int32_t y:5;
+    int32_t z:5;
+    uint32_t prop1Cnt:6;
+    uint32_t prop2Cnt:6;
+    uint32_t unk0_4:5; //node_prop_count
     NodeProp *prop1Ptr;
     Prop *prop2Ptr;
 }Cube;
 
 typedef struct actor_array{
-    s32 cnt;
-    s32 max_cnt;
+    int32_t cnt;
+    int32_t max_cnt;
     Actor data[]; //variable size array
 }ActorArray;
 
 typedef struct {
-    u32 cnt;
+    uint32_t cnt;
     Actor *actor_save_state[];
 }ActorListSaveState;
 
